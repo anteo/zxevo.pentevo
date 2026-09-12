@@ -1,5 +1,5 @@
 
-; LAST UPDATE: 14.02.2025 savelij
+; LAST UPDATE: 11.09.2026 savelij
 
 ; номера функций RST 8
  INIT_VAR 0x40
@@ -132,20 +132,19 @@ FB
  _SETVAR .SET_FILE_EXT				; установка расширений файлов
 
 ; номера поддерживаемых расширений для RST 8
-; "TRDSCLFDITAPSPG$C FNTBMPROM"		;RST 8
-; "TRDSCLFDITAPSPG$C BMPSNA"		;MAINMENU
  INIT_VAR 1
- SETVAR _TRD		;TRD
- SETVAR _SCL		;SCL
- SETVAR _FDI		;FDI
- SETVAR _TAP		;TAP
- SETVAR _SPG		;SPG
- SETVAR _HOB		;$C
- SETVAR _FNT		;FNT
- SETVAR _BMP		;BMP
- SETVAR _ROM		;ROM
- SETVAR _HOB1		;$??
- SETVAR _HOB2		;!??
+ SETVAR _TRD		; TRD
+ SETVAR _SCL		; SCL
+ SETVAR _FDI		; FDI
+ SETVAR _TAP		; TAP
+ SETVAR _SPG		; SPG
+ SETVAR _HOB		; $C
+ SETVAR _FNT		; FNT
+ SETVAR _BMP		; BMP
+ SETVAR _ROM		; ROM
+ SETVAR _HOB1		; $??
+ SETVAR _HOB2		; !??
+ SETVAR _SNA		; SNA
 
 ; внутренние номера типов разделов
  INIT_VAR

@@ -1,15 +1,6 @@
 
-if NOT "%rootdir%"=="" exit /b
+@echo off
 
-call :ExpandRootDir %~dp0
-if "%oldpath%"=="" set oldpath=%PATH%
-if "%includes%"=="" set includes=%rootdir%
-
-set path=%rootdir%\..\tools\asl\bin;%rootdir%\..\tools\mhmt;%path%
-
-exit /b
-
-
-:ExpandRootDir
-set rootdir=%~f1
-exit /b
+set path=d:\yad\svn\pentevo\tools\asl\bin\;d:\yad\svn\pentevo\tools\mhmt\
+set rootdir=d:\yad\svn\pentevo\rom\
+set includes=%rootdir%

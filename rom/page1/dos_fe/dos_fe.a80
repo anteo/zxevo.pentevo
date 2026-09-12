@@ -1,5 +1,5 @@
 
-; LAST UPDATE: 21.03.2025 savelij
+; LAST UPDATE: 12.09.2026 savelij
 
 ; ((out&0ffff)==37f7)&&((val&0ff)==1)
 ; ((out&0ffff)==77f7)&&((val&0ff)==1)
@@ -46,7 +46,7 @@ ADR_ADDRESS	EQU $
 		ENDM
 
 		ORG 0
-		DB "Emu TR-DOS v",VERS_DOS,"Build: "
+		DB "Emu TR-DOS v",VERS_DOS," Build: "
 		TEXTTIME
 		DB " "
 		TEXTDATE
