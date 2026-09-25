@@ -12050,7 +12050,7 @@
 				(pin bidirectional line
 					(at 30.48 -5.08 180)
 					(length 2.54)
-					(name "USBHOST_DM"
+					(name "USBHS_DM"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -12068,7 +12068,7 @@
 				(pin bidirectional line
 					(at 30.48 -7.62 180)
 					(length 2.54)
-					(name "USBHOST_DP"
+					(name "USBHS_DP"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -12086,7 +12086,7 @@
 				(pin bidirectional line
 					(at 30.48 -12.7 180)
 					(length 2.54)
-					(name "USBDEV_DM"
+					(name "USBFS_DM"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -12104,7 +12104,7 @@
 				(pin bidirectional line
 					(at 30.48 -15.24 180)
 					(length 2.54)
-					(name "USBDEV_DP"
+					(name "USBFS_DP"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -49082,17 +49082,6 @@
 		)
 		(uuid "0c253f02-6c38-49d6-8e2d-95121150c927")
 	)
-	(hierarchical_label "USBHOST-"
-		(shape bidirectional)
-		(at 359.41 163.83 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "0db33b9c-bf9d-4243-b92f-a4429dc543e7")
-	)
 	(hierarchical_label "MDITP"
 		(shape input)
 		(at 490.22 118.11 180)
@@ -49114,6 +49103,17 @@
 			(justify left)
 		)
 		(uuid "1658bff9-32b9-4498-8f96-4d9a2dfcf29d")
+	)
+	(hierarchical_label "USBDEV+"
+		(shape bidirectional)
+		(at 359.41 166.37 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1eedf3ec-2f0d-4313-9a45-97a9aeb6215e")
 	)
 	(hierarchical_label "TAPE_BIT"
 		(shape input)
@@ -49181,17 +49181,6 @@
 		)
 		(uuid "32f1692e-e8f5-4005-b916-122fa933fba6")
 	)
-	(hierarchical_label "USBHOST+"
-		(shape bidirectional)
-		(at 359.41 166.37 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "37cefdc1-223d-414f-a796-44e478cd1a87")
-	)
 	(hierarchical_label "DBG_TX"
 		(shape output)
 		(at 314.96 93.98 180)
@@ -49247,6 +49236,17 @@
 		)
 		(uuid "4d311290-85b0-47f2-90a6-564538cea1a6")
 	)
+	(hierarchical_label "USBDEV-"
+		(shape bidirectional)
+		(at 359.41 163.83 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "539308e1-e461-4b94-ac88-c22b544e0d35")
+	)
 	(hierarchical_label "ETH_LED1"
 		(shape input)
 		(at 514.35 105.41 180)
@@ -49268,17 +49268,6 @@
 			(justify left)
 		)
 		(uuid "5734de07-eff4-4544-a699-fafce2f207f3")
-	)
-	(hierarchical_label "USBDEV-"
-		(shape bidirectional)
-		(at 359.41 171.45 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "574d311c-fd1d-4283-b0fe-caf11f09219a")
 	)
 	(hierarchical_label "PGM_TX"
 		(shape input)
@@ -49489,17 +49478,6 @@
 		)
 		(uuid "afcd0c6c-ab83-45f3-a855-6f7fde191011")
 	)
-	(hierarchical_label "USBDEV+"
-		(shape bidirectional)
-		(at 359.41 173.99 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "b4b13a9f-c5dc-456d-a9b4-f1c82974a2bb")
-	)
 	(hierarchical_label "PS2_KB_DAT_3v3"
 		(shape bidirectional)
 		(at 113.03 195.58 0)
@@ -49521,6 +49499,17 @@
 			(justify right)
 		)
 		(uuid "c8af0e1b-b716-460d-bd47-844bd5481f57")
+	)
+	(hierarchical_label "USBHOST+"
+		(shape bidirectional)
+		(at 359.41 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ca13194e-169e-489f-8af0-81b5489bb91d")
 	)
 	(hierarchical_label "PS2_KB_DAT_3v3"
 		(shape bidirectional)
@@ -49642,6 +49631,17 @@
 			(justify left)
 		)
 		(uuid "f36a2b05-e16b-4be8-a040-5c375a4736e3")
+	)
+	(hierarchical_label "USBHOST-"
+		(shape bidirectional)
+		(at 359.41 171.45 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f72a07b2-abb3-44d9-8853-0489019cac70")
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole_Pad")
