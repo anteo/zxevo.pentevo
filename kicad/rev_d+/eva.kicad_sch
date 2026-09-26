@@ -60,10 +60,10 @@
 			(color 128 0 0 1)
 		)
 		(fill
-			(color 128 255 128 1.0000)
+			(color 255 0 0 1.0000)
 		)
 		(uuid "31d5864f-06ec-4c73-9256-780a6880087d")
-		(property "Sheetname" "MCU/ETC"
+		(property "Sheetname" "MCU ETC"
 			(at 76.454 75.438 0)
 			(effects
 				(font
