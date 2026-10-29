@@ -4,13 +4,6 @@ Q_PREFIX ?= wine
 Q_PATH ?= ~/.wine/drive_c/altera/72/quartus/bin/
 Q_EXE ?= quartus_sh.exe
 
-# macOS: run the Windows tools in a running Parallels VM. The checkout must
-# be shared with the guest; override PARALLELS_PROJECT_DIR for another share.
-PARALLELS_VM ?= Windows 11
-PARALLELS_QUARTUS ?= C:/altera/90/quartus/bin/quartus_sh.exe
-PARALLELS_PROJECT_DIR ?=
-PARALLELS_LICENSE ?=
-
 top.rbf top.sof: ../top.v
 top.rbf top.sof: ../video/video_sync_h.v
 top.rbf top.sof: ../video/video_outmux.v
@@ -57,24 +50,7 @@ top.rbf top.sof: ../z80/zwait.v
 top.rbf top.sof: ../z80/zmem.v
 top.rbf top.sof: ../common/resetter.v
 top.rbf top.sof: top.qsf
-ifeq ($(shell uname -s),Darwin)
-	@project_dir="$(PARALLELS_PROJECT_DIR)"; \
-	if [ -z "$$project_dir" ]; then \
-	  host_dir="$$(pwd -P)"; \
-	  case "$$host_dir" in \
-	    "$$HOME"/*) relative_dir="$${host_dir#"$$HOME"/}" ;; \
-	    *) echo 'Set PARALLELS_PROJECT_DIR to the Windows path of this shared directory.' >&2; exit 1 ;; \
-	  esac; \
-	  project_dir="\\\\Mac\\Home\\$$(printf '%s' "$$relative_dir" | tr '/' '\\')"; \
-	fi; \
-	project_dir="$$(printf '%s' "$$project_dir" | sed "s/'/''/g")"; \
-	quartus="$$(printf '%s' "$(PARALLELS_QUARTUS)" | sed "s/'/''/g")"; \
-	license="$$(printf '%s' "$(PARALLELS_LICENSE)" | sed "s/'/''/g")"; \
-	prlctl exec "$(PARALLELS_VM)" --current-user powershell.exe -NoProfile -NonInteractive -Command \
-	  "\$$ErrorActionPreference = 'Stop'; if ('$$license' -ne '') { \$$env:LM_LICENSE_FILE = '$$license' }; Set-Location -LiteralPath '$$project_dir'; & '$$quartus' --flow compile top.qsf; exit \$$LASTEXITCODE"
-else
 	$(Q_PREFIX) $(Q_PATH)$(Q_EXE) --flow compile top.qsf
-endif
 
 
 clean:

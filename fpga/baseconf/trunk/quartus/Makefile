@@ -75,6 +75,12 @@ ifeq ($(shell uname -s),Darwin)
 else
 	$(Q_PREFIX) $(Q_PATH)$(Q_EXE) --flow compile top.qsf
 endif
+	@awk -f ../../../../tools/quartus/summary.awk top.fit.summary
+
+.PHONY: info
+info:
+	@if [ ! -f top.fit.summary ]; then echo 'No fitter summary found; compile the project first.' >&2; exit 1; fi
+	@awk -f ../../../../tools/quartus/summary.awk top.fit.summary
 
 
 clean:
