@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ ! -v ASL_PATH ]; then
+if [ -z "${ASL_PATH:-}" ]; then
 	ASL_PATH="../../../tools/asl/bin/"
 fi
 
-if [ ! -v MHMT_PATH ]; then
+if [ -z "${MHMT_PATH:-}" ]; then
 	MHMT_PATH="../../../tools/mhmt/"
 fi
 

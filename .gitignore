@@ -2,3 +2,5 @@
 /tools/mhmt/linux/*.o
 /tools/make_fw/linux/make_fw
 /tools/make_fw/linux/*.o
+/tools/asl/build-macos/
+/tools/asl/build/
