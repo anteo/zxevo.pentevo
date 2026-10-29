@@ -46,11 +46,11 @@ TARGETS = zx interrupts main ps2 spi depacker_dirty rs232 rtc atx joystick versi
 
 
 ifeq ($(OS),Windows_NT)
-	MAKEFW = "../../../../tools/make_fw/make_fw.exe"
+	MAKEFW ?= "../../../../tools/make_fw/make_fw.exe"
 	AVRSIZEOPT =
 	CP = copy /Y
 else
-	MAKEFW = ../../../../../tools/make_fw/make_fw
+	MAKEFW ?= ../../../../tools/make_fw/make_fw
 	AVRSIZEOPT = -C --mcu=${MCU}
 	CP = cp
 endif
@@ -95,7 +95,7 @@ size: $(PROJECT).elf
 	$(AVRSIZE) $(AVRSIZEOPT) $(PROJECT).elf
 
 #zxevo_beta.bin: core.hex core.eep
-#	../../../tools/make_fw/make_fw core.hex core.eep zxevo_beta.bin version.txt
+#	../../../../tools/make_fw/make_fw core.hex core.eep zxevo_beta.bin version.txt
 
 $(RELEASE).bin: core.hex core.eep
 	$(MAKEFW) $(PROJECT).hex $(PROJECT).eep $(RELEASE).bin version.txt o

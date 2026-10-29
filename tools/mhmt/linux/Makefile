@@ -3,7 +3,11 @@ NAME            = mhmt
 OBJECTS         = mhmt-emit.o mhmt-globals.o mhmt-hash.o mhmt-lz.o mhmt-main.o mhmt-optimal.o mhmt-pack.o mhmt-parsearg.o mhmt-tb.o mhmt-depack.o
 
 #CFLAGS          = -m32 -march=i386 -std=c99 -O2 -flto -fomit-frame-pointer -Wunused-variable -Wextra -Werror -pedantic-errors -g -D_POSIX_C_SOURCE=1 -U__STRICT_ANSI__ 
+ifeq ($(shell uname -s),Darwin)
+CFLAGS          = -std=c99 -O2 -D_POSIX_C_SOURCE=1 -U__STRICT_ANSI__
+else
 CFLAGS          = -std=c99 -O2 -flto -fomit-frame-pointer -Wunused-variable -Wextra -Werror -pedantic-errors -g -D_POSIX_C_SOURCE=1 -U__STRICT_ANSI__ -Wno-shift-negative-value
+endif
 
 #switch the compiler (for the internal make rules)
 CC              = gcc

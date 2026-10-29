@@ -1,4 +1,8 @@
+ifeq ($(shell uname -s),Darwin)
+TARGET = make_fw
+else
 TARGET = ../make_fw
+endif
 CC = gcc
 
 CFLAGS = -Wall -Os

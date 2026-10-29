@@ -1,7 +1,10 @@
-manually place in this dir:
+make.sh uses avr/baseconf/trunk and fpga/base_trdemu/trunk from the repository.
+FPGA_PATH, AVR_PATH and MHMT_BIN can be overridden through the environment.
 
-pentevo/avr/baseconf/trunk as 'avr'
-pentevo/fpga/base_trdemu/trunk as 'fpga'
+On macOS, make.sh builds the host utilities using make before running the
+original build sequence:
+
+./cfgs/standalone_base_trdemu/trunk/make.sh
 
 
 
