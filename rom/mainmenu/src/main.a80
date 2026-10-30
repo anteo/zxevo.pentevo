@@ -1,5 +1,5 @@
 
-; LAST UPDATE: 05.09.2026 savelij
+; LAST UPDATE: 12.09.2026 savelij
 
 PAGE
 		TITLE "main.a80"
@@ -305,6 +305,60 @@ OSTAT_KEYS	EX AF,AF'
 		DEC A
 		JR JUMP2HL1
 
+; включение произвольной страница RAM в 3 окне проецирования
+; с отключение привязки к порту 7FFD
+; A - номер страницы (инвертированнный)
+SETPAGE1	PUSH BC
+		EX AF,AF'
+	PEC_ON M_SHADOW_BF
+		LD BC,WIN_A1
+		LD A,0x40
+		OUT (C),A
+		LD B,HIGH (WIN_P1)
+		EX AF,AF'
+		OUT (C),A
+	PEC_OFF M_SHADOW_BF
+		POP BC
+		RET
+
+; возврат 0 страницы RAM в 3 окне проецирования
+; и возврат привязки к порту 7FFD
+RETPAGE1	PUSH BC
+	PEC_ON M_SHADOW_BF
+		LD BC,WIN_A1
+		LD A,0xFF
+		OUT (C),A
+	PEC_OFF M_SHADOW_BF
+		POP BC
+		RET
+
+; включение произвольной страница RAM в 3 окне проецирования
+; с отключение привязки к порту 7FFD
+; A - номер страницы (инвертированнный)
+SETPAGE3	PUSH BC
+		EX AF,AF'
+	PEC_ON M_SHADOW_BF
+		LD BC,WIN_A3
+		LD A,0x40
+		OUT (C),A
+		LD B,HIGH (WIN_P3)
+		EX AF,AF'
+		OUT (C),A
+	PEC_OFF M_SHADOW_BF
+		POP BC
+		RET
+
+; возврат 0 страницы RAM в 3 окне проецирования
+; и возврат привязки к порту 7FFD
+RETPAGE3	PUSH BC
+	PEC_ON M_SHADOW_BF
+		LD BC,WIN_A3
+		LD A,0xFF
+		OUT (C),A
+	PEC_OFF M_SHADOW_BF
+		POP BC
+		RET
+
 ; изменение режима памяти
 CHNGMODE	LD HL,MEMMODE
 		DEC (HL)			; сменили режим памяти
@@ -584,34 +638,25 @@ COPY_MNTNAME3	LDIR
 		RET
 
 ; получение имени файла загруженного в рамдиск
-GET_RAMD_NAME
-	PEC_ON M_SHADOW_BF
-		LD BC,WIN_P2
-		LD A,RAM_RAMDISK
-		OUT (C),A
-		LD DE,CPU2+0x3DFF
+GET_RAMD_NAME	LD A,RAM_RAMDISK
+		CALL SETPAGE3
+		LD DE,CPU3 + 0x3DFF
 		LD A,(DE)
 		AND A
-		JR Z,GRN1
-		LD HL,GRN1
+		LD HL,RETPAGE3
 		PUSH HL
+		RET Z
 		LD HL,IN_RAMDISK
 		LD B,8
-		CALL GRN2
+		CALL .GRN2
 		LD B,3
 		LD (HL),"."
 		INC HL
-GRN2		LD A,(DE)
+.GRN2		LD A,(DE)
 		LD (HL),A
 		DEC D
 		INC HL
-		DJNZ GRN2
-		RET
-
-GRN1		LD BC,WIN_P2
-		LD A,ZXSTD_CPU2
-		OUT (C),A
-	PEC_OFF M_SHADOW_BF
+		DJNZ .GRN2
 		RET
 
 ; вывод основного меню и надписей
@@ -1060,4 +1105,6 @@ ISDOS_BOOT	LD HL,ISDOS_BOOT1
 ISDOS_BOOT1	include isdos_boot.a80
 ISDOS_BOOT2
 
-SEL_FAT_DRV	; адрес создания текста, адресов вызывов и списка горячих клавиш меню выбора разделов FAT
+		DB LOW (-$) DUP 0
+ INIT_VAR $
+ SETVAR SEL_FAT_DRV,	0	; адрес создания текста, адресов вызывов и списка горячих клавиш меню выбора разделов FAT

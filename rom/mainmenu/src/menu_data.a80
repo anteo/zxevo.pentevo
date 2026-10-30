@@ -1,5 +1,5 @@
 
-; LAST UPDATE: 01.09.2026 savelij
+; LAST UPDATE: 12.09.2026 savelij
 
 ; описатель окна (адрес в IX)
 ; +00 X координата
@@ -570,15 +570,15 @@ MAIN_ZONE	DB 0,0x00,0x06,0x01,0x10,"v"		; перебор дисководов
 		DB 0,0x00,0x0B,0x01,0x10,"g"		; перебор разрешения глюка
 		DB 0,0x00,0x0C,0x01,0x10,"e"		; перебор разрешения перезагрузки фонта
 		DB 0,0x00,0x0D,0x01,0x10,"j"		; перебор типа шрифта
-;		DB 0,0X00,0X0E,0X01,0X10,"k"		; перебор драйвера принтера
-;		DB 0,0x00,0x17,0x01,0x05,"h"		; вызов помощи
 		DB 0,0x00,0x0E,0x01,0x10,"n"		; вкл/выкл автомонтирования из файла
+		DB 0,0x00,0x0F,0x01,0x10,"k"		; перебор типа автозапуска
+;		DB 0,0x00,0x17,0x01,0x05,"h"		; вызов помощи
 ;		DB 0,0x1D,0x15,0x03,0x03,0xAC
 		DB 0xFF
 
-BUFF_TIME	DB 0x16,0x00,0xD0,0x17,BLUE << 3 + YELLOW + BR_INK
-TXT_TIME	DB "00:00:00",0x16,0x01,0xD0
-TXT_DATA	DB "00.00.00",0x17,0xFF
+BUFF_TIME	DB "\x16\x00\xD0\x17",BLUE << 3 + YELLOW + BR_INK
+TXT_TIME	DB "00:00:00\x16\x01\xD0"
+TXT_DATA	DB "00.00.00\x17\xFF"
 
 ; 000	PENT	TV	71680
 ; 001	PENT	VGA	71680
@@ -588,7 +588,7 @@ TXT_DATA	DB "00.00.00",0x17,0xFF
 ; 101	48K	VGA	69888
 ; 110	128K	TV	70908
 ; 111	128K	VGA	70908
-TXT_VMODE	DB "\x16\x02\xD0\x17",GREEN+BR_INK,"        ",0
+TXT_VMODE	DB "\x16\x02\xD0\x17",GREEN + BR_INK,"        ",0
 TV_VGA		EQU $-9
 
 TXT_TVVGA	DB "TV VGA"
@@ -632,11 +632,12 @@ TYPE_FILE	DB 0
 
 SIGN_SCL	DB "SINCLAIR"
 IMAGES		DB "FDIBMP"
-VIEW_IMAGES	DB "TRDSCL",0
-TAPES		DB "TAP",0
-HOBETA		DB "$C SPGSNA",0
-ROMS		DB "ROM",0
-FONTS		DB "FNT",0
+VIEW_IMAGES	DZ "TRDSCL"
+TAPES		DZ "TAP"
+HOBETA		DZ "$C SPGSNA"
+ROMS		DZ "ROM"
+FONTS		DZ "FNT"
+ALL_EXT		DZ "TRDSCLFDITAPSPG$C FNTBMPROM$??!??SNA"
 
 ; текст для отображения найденных разделов, по 16 байт строка
 TXT4MENU_DEVICE	   ;12345678901234567890
@@ -658,8 +659,8 @@ TXT4MENU_TYPE	DB "FAT12"
 		DB "FAT16"
 		DB "FAT32"
 
-TXT_EDITCMOS1	DB "Press cursor keys, 0..9, A..F for edit,  X.Exit",0
-TXT_EDITCMOS2	DB "CMOS Editor",0
+TXT_EDITCMOS1	DZ "Press cursor keys, 0..9, A..F for edit,  X.Exit"
+TXT_EDITCMOS2	DZ "CMOS Editor"
 
 ;		    0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F
 ;80		    А    Б    В    Г    Д    Е    Ж    З    И    Й    К    Л    М    Н    О    П
@@ -701,25 +702,25 @@ CONV_ATM_CP866	DB 0xB0,0xB1,0xB2,0xB3,0xB4,0xB5,0xB6,0xB7,0xB8,0xB9,0xBA,0xBB,0x
 
 ;===============txt_help========================================
 ;		    0123456789ABCDEF0123456789ABCDEF
-TXT_HELPREG	DB "SECOND                         ",0		; 00
-		DB "SECOND ALARM                   ",0		; 01
-		DB "MINUTE                         ",0		; 02
-		DB "MINUTE ALARM                   ",0		; 03
-		DB "HOUR                           ",0		; 04
-		DB "HOUR ALARM                     ",0		; 05
-		DB "DAY OF WEEK                    ",0		; 06
-		DB "DAY                            ",0		; 07
-		DB "MONTH                          ",0		; 08
-		DB "YEAR                           ",0		; 09
-		DB "#20                            ",0		; 0A
-		DB "#02                            ",0		; 0B
-		DB "#00                            ",0		; 0C
-		DB "#80                            ",0		; 0D
-		DB "BIT 7=TURBO,BIT 2-0=MEMORY MODE",0		; 0E
-		DB "                               ",0		; 0F
-		DB "NUMBER TR-DOS DRIVE            ",0		; 10
-		DB "#AA OR #55                     ",0		; 11
-EMPTY_STROKA	DB "                               ",0
+TXT_HELPREG	DZ "SECOND                         "		; 00
+		DZ "SECOND ALARM                   "		; 01
+		DZ "MINUTE                         "		; 02
+		DZ "MINUTE ALARM                   "		; 03
+		DZ "HOUR                           "		; 04
+		DZ "HOUR ALARM                     "		; 05
+		DZ "DAY OF WEEK                    "		; 06
+		DZ "DAY                            "		; 07
+		DZ "MONTH                          "		; 08
+		DZ "YEAR                           "		; 09
+		DZ "#20                            "		; 0A
+		DZ "#02                            "		; 0B
+		DZ "#00                            "		; 0C
+		DZ "#80                            "		; 0D
+		DZ "BIT 7=TURBO,BIT 2-0=MEMORY MODE"		; 0E
+		DZ "                               "		; 0F
+		DZ "NUMBER TR-DOS DRIVE            "		; 10
+		DZ "#AA OR #55                     "		; 11
+EMPTY_STROKA	DZ "                               "
 
 		DUPL 0x10,0
 DSTUPID		DW _STUPID
