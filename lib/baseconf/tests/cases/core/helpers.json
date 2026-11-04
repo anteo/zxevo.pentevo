@@ -1,0 +1,5 @@
+{
+  "description": "ZX attribute and paging/configuration bitfield helpers",
+  "profiles": ["no-stdio"],
+  "timeout": 30
+}

@@ -1,0 +1,38 @@
+        MODULE bc__video_zx_attribute_regs
+
+SECTION code_clib
+PUBLIC bc__video_zx_attribute_regs
+
+; E = foreground, D = background. Return the ZX attribute in A.
+; Preserve BC/DE/HL/IX/IY. The two colors share the hardware bright bit.
+;
+; Encodes two palette indices as a ZX attribute with one brightness bit
+; shared by ink and paper.
+;
+; Model:
+;
+; return (ink&7)|((paper&7)<<3)|(((ink|paper)&8)<<3);
+;
+; Unlike the ATM layout, either bright input makes both colors bright.
+; Only AF changes; BC/DE/HL/IX/IY are preserved. This helper does not set flash.
+bc__video_zx_attribute_regs:
+        push bc
+        ld a,d
+        and 7
+        rlca
+        rlca
+        rlca
+        ld c,a
+        ld a,e
+        and 7
+        or c
+        ld c,a
+        ld a,e
+        or d
+        and 8
+        rlca
+        rlca
+        rlca
+        or c
+        pop bc
+        ret
