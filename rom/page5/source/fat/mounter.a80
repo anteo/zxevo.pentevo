@@ -826,6 +826,8 @@ LDIRSEC6	LD BC,0x100
 		OUT (C),A				; вернули страницу переменных в окно 2
 		RET
 
+MOUNT_LIST_BUF	EQU CPU1+BUF_PATHMOUNT+BUF_PATHMOUNT_Size
+
 TXT_MOUNTER	DZ "IMAGE.MNT"				; имя для поиска текстового файла с указанием к монтированию TRD
 ETXT_MOUNTER
 
@@ -876,13 +878,15 @@ FIND_MOUNTED	LD A,(DEVMAN_VARS.KOLDVOL)
 		LD A,(HL)
 		CP 2
 		JP NC,.L01				; файл не должен быть более 512 байт
-		LD A,1					; читать будем 1 сектор из найденного файла
 		LD B,(HL)
 		DEC HL
 		LD C,(HL)				; взяли длину файла в байтах
 		PUSH BC					; сохранили для дальнейшего использования
 		LD IYL,INTERNAL
-		LD HL,BUF_512				; буфер куда сектор грузим
+; Keep IMAGE.MNT separate from BUF_512, which READ_FILE uses to follow the FAT chain.
+	EVOPORT WIN_P1,RAM_MOUNTER
+		LD A,1
+		LD HL,MOUNT_LIST_BUF
 		PUSH HL
 		CALL READ_FILE				; прочитали 1 сектор из файла
 	EVOPORT WIN_P1,RAM_MOUNTER
@@ -1328,6 +1332,7 @@ SET_VIRTREAL	LD A,(RREG_A)
 		ADD A,A
 		ADD A,A
 		OR E
+		OR D
 .L1		LD L,A
 	ROMCALL IWRITECMOS,ROM_RST82
 		JP GET_VIRT_BITS
@@ -1360,5 +1365,4 @@ SET_VIRT	LD A,(RREG_A)
 
 GET_VIRTREAL	LD H,CMOS.VIRT_REAL_DRIVE
 	ROMCALL READCMOS,ROM_RST82
-		AND 0x0F
-		RET
+		RET				; keep the storage flags when updating drive assignments
