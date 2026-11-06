@@ -407,9 +407,7 @@ MATH		CALL P5_READ_BYTE
 		EX AF,AF'
 		INC A
 		EX AF,AF'
-		LD A,B
-		CP 0xC4
-		JR C,.BCDEMHL1
+		JR NC,.BCDEMHL1			; repeat while the unsigned subtraction did not borrow
 		LD A,(HL)
 		ADD A,E
 		LD E,A
