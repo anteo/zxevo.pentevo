@@ -48,7 +48,8 @@ int main(void) {
         memcpy(source + 'A' * 8, checker, sizeof(checker));
         memcpy(source + 'B' * 8, diamond, sizeof(diamond));
         for (i = 0; i < FONT_BYTES; ++i) destination[i] = (uint8_t)(i ^ (i >> 8) ^ 0xa7u);
-        BC_ASSERT(bc_upload_font_preserving(source, destination, destination) == BC_INVALID_ARGUMENT);
+        BC_ASSERT(bc_upload_font_preserving(source, destination, destination) ==
+                  BC_INVALID_ARGUMENT);
         BC_ASSERT(bc_upload_font_preserving(source, destination, backup) == BC_OK);
         BC_ASSERT(ram_was_restored());
         BC_ASSERT(z80_inp(PORT_BF) == bf);

@@ -15,7 +15,7 @@ static bc_status_t bc__sd_finish_write(bc_sd_transaction_t *transaction, uint16_
 }
 
 bc_status_t bc_sd_write_sector(bc_sd_card_type_t type, uint32_t lba, const void *buffer,
-                                uint16_t max_polls) {
+                               uint16_t max_polls) {
     bc_sd_transaction_t transaction;
     bc_status_t status;
     if (!buffer || !max_polls) return BC_INVALID_ARGUMENT;

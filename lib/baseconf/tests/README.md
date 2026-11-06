@@ -136,19 +136,19 @@ int main(void) {
 `bc_test_step_shot/data/binary/text/skip` complete the current step and wait for the host;
 `bc_test_finish` ends the test. `name` is optional: `NULL` or an empty string uses the tag `out`.
 
-| Function                                         | Purpose                                                         |
-| ------------------------------------------------ | --------------------------------------------------------------- |
-| `bc_test_init()`                                 | `bc_init`, `DI`, border 0, ink 7, paper 0                       |
-| `bc_test_step_shot(name)`                        | step with a screenshot                                          |
-| `bc_test_output_*()` + `bc_test_step_text(name)` | step with text                                                  |
-| `bc_test_step_data(name, ptr, len)`              | step with data as a hex dump                                    |
-| `bc_test_step_binary(name, ptr, len)`            | step with raw bytes                                             |
-| `BC_ASSERT(cond)`                                | check; a failure marks the step FAIL                            |
-| `bc_test_step_skip(name, reason)`                | SKIP step                                                       |
-| `bc_test_finish()`                               | final verdict; the CPU stays in a loop                          |
+| Function                                         | Purpose                                   |
+| ------------------------------------------------ | ----------------------------------------- |
+| `bc_test_init()`                                 | `bc_init`, `DI`, border 0, ink 7, paper 0 |
+| `bc_test_step_shot(name)`                        | step with a screenshot                    |
+| `bc_test_output_*()` + `bc_test_step_text(name)` | step with text                            |
+| `bc_test_step_data(name, ptr, len)`              | step with data as a hex dump              |
+| `bc_test_step_binary(name, ptr, len)`            | step with raw bytes                       |
+| `BC_ASSERT(cond)`                                | check; a failure marks the step FAIL      |
+| `bc_test_step_skip(name, reason)`                | SKIP step                                 |
+| `bc_test_finish()`                               | final verdict; the CPU stays in a loop    |
 
-Video tests select screen 0 once for reproducible screenshots. Each call to
-`bc_set_video_mode()` prepares the screen's draw surface in the available CPU windows.
+Video tests select screen 0 once for reproducible screenshots. Each call to `bc_set_video_mode()`
+prepares the screen's draw surface in the available CPU windows.
 
 ### Result channels
 
@@ -346,20 +346,17 @@ Exit codes: `0` — PASS, `1` — FAIL or build error, `2` — emulator/ZRCP err
 - The harness starts with maskable interrupts disabled. Interrupt cases install their own handlers.
 - Code and rodata up to 24,320 bytes; large scenes are split into cases.
 - One emulator per run; parallel runs on the same port are not supported.
-- Flash programming, paged AVR EEPROM and `newirq` sources require
-  hardware support beyond this emulator. The RTC clock case checks BCD and the PS/2 case checks
-  make and break codes.
+- Flash programming, paged AVR EEPROM and `newirq` sources require hardware support beyond this
+  emulator. The RTC clock case checks BCD and the PS/2 case checks make and break codes.
 
 Cases can pass extra ZEsarUX command-line options as an `emulator_args` array in their JSON
-metadata. Interactive cases can use `emulator_steps`. Each key
-names a target marker. After resuming that marker, the runner can generate
-`nmi`, run `settle` instructions, send `before_shot_keys`, capture a `shot`,
-then send `keys`. Key scripts accept names and chords such as `f;break;0`.
-An optional `region` of `[x, y, width, height]` limits comparison to stable
-pixels such as a menu, while the saved screenshot retains the full frame.
-An action with `uart.send` or `uart.expect` exchanges byte arrays over a raw POSIX
-pseudoterminal while the target waits at that marker. The UART case requires a
-ZEsarUX build with BaseConf UART support and the `--uartbridge-file` option.
+metadata. Interactive cases can use `emulator_steps`. Each key names a target marker. After resuming
+that marker, the runner can generate `nmi`, run `settle` instructions, send `before_shot_keys`,
+capture a `shot`, then send `keys`. Key scripts accept names and chords such as `f;break;0`. An
+optional `region` of `[x, y, width, height]` limits comparison to stable pixels such as a menu,
+while the saved screenshot retains the full frame. An action with `uart.send` or `uart.expect`
+exchanges byte arrays over a raw POSIX pseudoterminal while the target waits at that marker. The
+UART case requires a ZEsarUX build with BaseConf UART support and the `--uartbridge-file` option.
 
 ### Coverage plan
 

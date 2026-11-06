@@ -6,22 +6,31 @@
 enum { WINDOW_X = 7, WINDOW_Y = 7, WINDOW_WIDTH = 18, ROWS = 5, GLYPH_HEIGHT = 8 };
 
 static bc_ers_window_t window = {
-    .x = WINDOW_X, .y = WINDOW_Y, .height = ROWS + 2, .width = WINDOW_WIDTH,
-    .attribute = 0x47, .flags = BC_ERS_WINDOW_NO_TEXT,
+    .x = WINDOW_X,
+    .y = WINDOW_Y,
+    .height = ROWS + 2,
+    .width = WINDOW_WIDTH,
+    .attribute = 0x47,
+    .flags = BC_ERS_WINDOW_NO_TEXT,
 };
 /* Position at x=69 pixels, row 8. Tab two characters after each newline. */
-static const char lines[] = "\x16\x08\x45\x17\xff" "First"
-                            "\x0d\x09\x02" "Second"
-                            "\x0d\x09\x02" "Third"
-                            "\x0d\x09\x02" "Fourth"
-                            "\x0d\x09\x02" "Fifth";
+static const char lines[] = "\x16\x08\x45\x17\xff"
+                            "First"
+                            "\x0d\x09\x02"
+                            "Second"
+                            "\x0d\x09\x02"
+                            "Third"
+                            "\x0d\x09\x02"
+                            "Fourth"
+                            "\x0d\x09\x02"
+                            "Fifth";
 static const uint8_t row_colors[ROWS] = {0x4f, 0x57, 0x5f, 0x60, 0x68};
 static uint8_t original[ROWS][GLYPH_HEIGHT][WINDOW_WIDTH];
 
 static uint8_t *bitmap_row(uint8_t row, uint8_t scanline) {
     uint8_t y = WINDOW_Y + 1 + row;
-    uint16_t address = 0x4000u | ((uint16_t)(y & 0x18) << 8) |
-                       ((uint16_t)scanline << 8) | ((uint16_t)(y & 7) << 5);
+    uint16_t address = 0x4000u | ((uint16_t)(y & 0x18) << 8) | ((uint16_t)scanline << 8) |
+                       ((uint16_t)(y & 7) << 5);
     return (uint8_t *)(address + WINDOW_X);
 }
 

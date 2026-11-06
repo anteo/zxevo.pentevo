@@ -4,14 +4,24 @@
 
 enum { WINDOW_X = 8, WINDOW_Y = 5 };
 
-static const char lines[] = "\x17\x0f\x01" "ERS TEXT WINDOW"
-                            "\x0d\x17\x4f" "Alpha"
-                            "\x0d\x17\x57" "Bravo"
-                            "\x0d\x17\x5f" "Charlie"
-                            "\x0d\x17\x67" "Delta";
+static const char lines[] = "\x17\x0f\x01"
+                            "ERS TEXT WINDOW"
+                            "\x0d\x17\x4f"
+                            "Alpha"
+                            "\x0d\x17\x57"
+                            "Bravo"
+                            "\x0d\x17\x5f"
+                            "Charlie"
+                            "\x0d\x17\x67"
+                            "Delta";
 static bc_ers_window_t window = {
-    .x = WINDOW_X, .y = WINDOW_Y, .height = 6, .width = 24,
-    .attribute = 0x0f, .flags = BC_ERS_WINDOW_NO_FRAME, .text = lines,
+    .x = WINDOW_X,
+    .y = WINDOW_Y,
+    .height = 6,
+    .width = 24,
+    .attribute = 0x0f,
+    .flags = BC_ERS_WINDOW_NO_FRAME,
+    .text = lines,
 };
 
 static void check_cell(uint8_t x, uint8_t y, uint8_t character, uint8_t attribute) {

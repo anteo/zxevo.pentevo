@@ -7,6 +7,7 @@
 static volatile uint8_t frame_count;
 static volatile uint8_t nmi_count;
 
+/* clang-format off */
 static void frame_handler(void) __naked {
     __asm
         push af
@@ -24,6 +25,7 @@ static void trap_target(void) __naked {
         ret
     __endasm;
 }
+/* clang-format on */
 
 static void check_maskable_interrupts(void) {
     uint8_t *const vector = (uint8_t *)0x0038u;
@@ -49,11 +51,8 @@ static void check_maskable_interrupts(void) {
 static void install_nmi_handler(void) {
     /* NMI fetches an injected NOP at 0066h, then executes in RAM page FFh.
      * Save AF/BC, increment the resident counter, disarm the trap and RETN. */
-    uint8_t handler[] = {
-        0xf5, 0xc5, 0x3a, 0, 0, 0x3c, 0x32, 0, 0,
-        0x01, 0xbf, 0x00, 0xed, 0x78, 0xcb, 0xa7, 0xed, 0x79,
-        0xc1, 0xf1, 0xd3, 0xbe, 0xed, 0x45
-    };
+    uint8_t handler[] = {0xf5, 0xc5, 0x3a, 0,    0,    0x3c, 0x32, 0,    0,    0x01, 0xbf, 0x00,
+                         0xed, 0x78, 0xcb, 0xa7, 0xed, 0x79, 0xc1, 0xf1, 0xd3, 0xbe, 0xed, 0x45};
     uint16_t counter = (uint16_t)(uintptr_t)&nmi_count;
     handler[3] = handler[7] = (uint8_t)counter;
     handler[4] = handler[8] = (uint8_t)(counter >> 8);
@@ -69,7 +68,8 @@ static void check_nmi(void) {
     install_nmi_handler();
 
     BC_ASSERT(bc_request_nmi() == BC_OK);
-    while (!nmi_count && --polls) {}
+    while (!nmi_count && --polls) {
+    }
     BC_ASSERT(nmi_count == 1);
     BC_ASSERT(bc_interrupt_save_disable() == 0);
     bc_test_step_marker("nmi");

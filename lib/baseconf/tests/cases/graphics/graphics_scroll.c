@@ -70,8 +70,7 @@ static uint8_t check_horizontal_edge(const scroll_case_t *test, int width, uint8
     for (distance = 0; distance < width; ++distance) {
         int x = right ? edge - distance : distance;
         uint8_t expected = INITIAL_PAPER;
-        if (distance == 0 || distance == width - 1 - test->pixels)
-            expected = SCROLL_INK;
+        if (distance == 0 || distance == width - 1 - test->pixels) expected = SCROLL_INK;
         if (distance >= width - test->pixels) expected = new_paper;
         if (bc_read_pixel_index(x, 16, &index) != BC_OK || index != expected) return 0;
     }

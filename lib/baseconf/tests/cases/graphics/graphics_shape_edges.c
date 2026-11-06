@@ -11,8 +11,7 @@ static void check_clipped_curves(int right, int bottom) {
     for (y = -4; y <= 4; ++y) {
         int dy = abs(y);
         for (x = 0; x <= 4; ++x) {
-            int expected = (x == 3 && dy <= 1) || (x <= 1 && dy == 3) ||
-                           (x == 2 && dy == 2);
+            int expected = (x == 3 && dy <= 1) || (x <= 1 && dy == 3) || (x == 2 && dy == 2);
             BC_ASSERT(point(x, 20 + y) == expected);
             BC_ASSERT(point(right - x, 20 + y) == 0);
         }
@@ -47,8 +46,8 @@ static void check_degenerate_curves(int right) {
     bc_draw_ellipse(64, 68, 0, 0);
     for (y = 63; y <= 73; ++y) {
         for (x = 31; x <= 65; ++x) {
-            int expected = (x == 32 && y >= 64 && y <= 72) ||
-                           (y == 68 && x >= 44 && x <= 52) || (x == 64 && y == 68);
+            int expected = (x == 32 && y >= 64 && y <= 72) || (y == 68 && x >= 44 && x <= 52) ||
+                           (x == 64 && y == 68);
             BC_ASSERT(point(x, y) == expected);
         }
     }

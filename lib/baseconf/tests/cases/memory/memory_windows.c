@@ -9,9 +9,9 @@ static volatile uint8_t *const last_byte = (volatile uint8_t *)0xbfffu;
 
 static uint8_t window_matches(bc_map_t map, uint8_t page, uint8_t write_protected) {
     bc_window_config_t config;
-    return bc_get_window_config(map, BC_WINDOW_2, &config) == BC_OK &&
-           config.kind == BC_RAM && config.physical_page == page &&
-           config.substitute_from_7ffd_or_dos == 0 && config.write_protected == write_protected;
+    return bc_get_window_config(map, BC_WINDOW_2, &config) == BC_OK && config.kind == BC_RAM &&
+           config.physical_page == page && config.substitute_from_7ffd_or_dos == 0 &&
+           config.write_protected == write_protected;
 }
 
 static void check_mapping(bc_map_t map) {

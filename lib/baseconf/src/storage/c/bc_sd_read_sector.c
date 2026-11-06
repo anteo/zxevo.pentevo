@@ -1,7 +1,7 @@
 #include "../internal.h"
 
 bc_status_t bc_sd_read_sector(bc_sd_card_type_t type, uint32_t lba, void *buffer,
-                               uint16_t max_polls) {
+                              uint16_t max_polls) {
     bc_sd_transaction_t transaction;
     uint8_t crc;
     bc_status_t status;

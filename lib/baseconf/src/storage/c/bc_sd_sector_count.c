@@ -1,8 +1,7 @@
 #include <baseconf/storage.h>
 #include <stdlib.h>
 
-bc_status_t bc_sd_sector_count(bc_sd_card_type_t type, const uint8_t csd[16],
-                                uint32_t *sectors) {
+bc_status_t bc_sd_sector_count(bc_sd_card_type_t type, const uint8_t csd[16], uint32_t *sectors) {
     uint8_t structure, block_exp, mult_exp;
     uint32_t size;
     if (!csd || !sectors || type > BC_SD_SDHC) return BC_INVALID_ARGUMENT;

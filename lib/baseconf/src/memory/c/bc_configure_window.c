@@ -11,8 +11,8 @@ bc_status_t bc_configure_window(bc_map_t map, bc_window_t window,
     if (map > BC_MAP_1 || window > BC_WINDOW_3 || !configuration) return BC_INVALID_ARGUMENT;
     /* The caller's configuration may live in a window that this call remaps. */
     config = *configuration;
-    if (config.kind > BC_FLASH ||
-        config.substitute_from_7ffd_or_dos > 1 || config.write_protected > 1)
+    if (config.kind > BC_FLASH || config.substitute_from_7ffd_or_dos > 1 ||
+        config.write_protected > 1)
         return BC_INVALID_ARGUMENT;
     if (config.kind == BC_FLASH && config.physical_page > 31) return BC_INVALID_ARGUMENT;
     if (bc_mem_active_window_lease) return BC_BUSY;

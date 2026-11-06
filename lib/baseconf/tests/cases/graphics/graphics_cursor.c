@@ -7,10 +7,8 @@ static uint8_t lines_match(void) {
     int x, y;
     for (y = 43; y <= 105; ++y) {
         for (x = 31; x <= 105; ++x) {
-            int expected = (y == 44 && x >= 32 && x <= 80) ||
-                           (x == 80 && y >= 44 && y <= 76) ||
-                           (y == 76 && x >= 48 && x <= 80) ||
-                           (y == 104 && x >= 60 && x <= 104) ||
+            int expected = (y == 44 && x >= 32 && x <= 80) || (x == 80 && y >= 44 && y <= 76) ||
+                           (y == 76 && x >= 48 && x <= 80) || (y == 104 && x >= 60 && x <= 104) ||
                            (x == 104 && y >= 88 && y <= 104);
             if (point(x, y) != expected) return 0;
         }

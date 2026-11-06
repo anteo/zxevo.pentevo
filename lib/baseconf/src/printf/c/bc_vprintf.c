@@ -36,8 +36,7 @@ static int bc__emit_text(const char **source, uint8_t limit, uint8_t stop, int c
         uint8_t column = _console_x;
         uint8_t row = _console_y;
         /* Short fields use the character path to avoid the row setup cost. */
-        if (limit >= 4 && column < _console_w && row < _console_h &&
-            count <= INT_MAX - UINT8_MAX) {
+        if (limit >= 4 && column < _console_w && row < _console_h && count <= INT_MAX - UINT8_MAX) {
             uint8_t room = _console_w - column;
             uint8_t length = 0;
             if (limit > room) limit = room;
@@ -47,11 +46,12 @@ static int bc__emit_text(const char **source, uint8_t limit, uint8_t stop, int c
                 ++length;
             }
             if (length >= 4) {
-                if (bc__text_draw_font(column, row, text, font, length) != BC_OK)
-                    return -1;
+                if (bc__text_draw_font(column, row, text, font, length) != BC_OK) return -1;
                 *source = text + length;
-                if (length == room) bc__console_newline();
-                else _console_x = column + length;
+                if (length == room)
+                    bc__console_newline();
+                else
+                    _console_x = column + length;
                 return count + length;
             }
         }
@@ -167,7 +167,7 @@ int bc_vprintf(const char *format, va_list args) {
             char digits[5];
             char *end = digits + sizeof(digits);
             uint8_t length = bc__printf_unsigned_string(value, (spec == 'u') ? 10u : 16u,
-                                                         (uint8_t)(spec == 'X'), end);
+                                                        (uint8_t)(spec == 'X'), end);
             count = bc__emit_field(end - length, length, width, left, zero, 0u, count);
         } else {
             count = bc__emit('%', count);

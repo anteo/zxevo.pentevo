@@ -19,8 +19,8 @@ static bc_status_t select_disk(void) {
 
 static void transfer_sector(bc_ers_transfer_direction_t direction, uint32_t sector) {
     bc_ers_nemo_transfer_result_t result;
-    bc_status_t status = bc_ers_device_nemo_transfer(direction, 0, 1, sector,
-                                         sector_buffer, &result);
+    bc_status_t status =
+        bc_ers_device_nemo_transfer(direction, 0, 1, sector, sector_buffer, &result);
     BC_ASSERT(status == BC_OK);
     if (status != BC_OK) return;
     BC_ASSERT(result.device_status == 0);
@@ -45,12 +45,12 @@ int main(void) {
     BC_ASSERT(bc_ers_device_set_sector_number(0, 0, 0) == BC_OK);
     bc_test_step_marker("sector_number");
 
-    BC_ASSERT(bc_ers_device_nemo_transfer((bc_ers_transfer_direction_t)2, 0, 1, 0,
-                                          sector_buffer, &result) == BC_INVALID_ARGUMENT);
-    BC_ASSERT(bc_ers_device_nemo_transfer(BC_ERS_TRANSFER_READ, 0, 1, 0,
-                                          0, &result) == BC_INVALID_ARGUMENT);
-    BC_ASSERT(bc_ers_device_nemo_transfer(BC_ERS_TRANSFER_READ, 0, 1, 0,
-                                          sector_buffer, 0) == BC_INVALID_ARGUMENT);
+    BC_ASSERT(bc_ers_device_nemo_transfer((bc_ers_transfer_direction_t)2, 0, 1, 0, sector_buffer,
+                                          &result) == BC_INVALID_ARGUMENT);
+    BC_ASSERT(bc_ers_device_nemo_transfer(BC_ERS_TRANSFER_READ, 0, 1, 0, 0, &result) ==
+              BC_INVALID_ARGUMENT);
+    BC_ASSERT(bc_ers_device_nemo_transfer(BC_ERS_TRANSFER_READ, 0, 1, 0, sector_buffer, 0) ==
+              BC_INVALID_ARGUMENT);
     bc_test_step_marker("reject_invalid_transfer");
 
     status = select_disk();

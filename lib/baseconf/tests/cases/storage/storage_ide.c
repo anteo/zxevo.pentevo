@@ -31,8 +31,7 @@ static void check_block(void) {
     status = bc_ide_read_sectors(1, sector, 1, ATA_POLLS);
     BC_ASSERT(status == BC_OK);
     if (status != BC_OK) return;
-    for (i = 0; i < sizeof(sector); ++i)
-        BC_ASSERT(sector[i] == (uint8_t)(i ^ (i >> 8) ^ 0xa5u));
+    for (i = 0; i < sizeof(sector); ++i) BC_ASSERT(sector[i] == (uint8_t)(i ^ (i >> 8) ^ 0xa5u));
     bc_test_step_marker("block_roundtrip");
 }
 

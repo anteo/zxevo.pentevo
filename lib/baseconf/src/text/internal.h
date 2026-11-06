@@ -12,7 +12,7 @@ void bc__text_cell_write(bc_video_mode_t mode, bc_surface_t surface, uint8_t x, 
 uint8_t bc__text_cell_read(bc_video_mode_t mode, bc_surface_t surface, uint8_t x, uint8_t y);
 
 /* Draw up to limit bytes, stopping at NUL or the right edge. */
-bc_status_t bc__text_draw_font(uint8_t column, uint8_t row, const char *text,
-                               const bc_font_t *font, uint16_t limit);
+bc_status_t bc__text_draw_font(uint8_t column, uint8_t row, const char *text, const bc_font_t *font,
+                               uint16_t limit);
 
 #endif

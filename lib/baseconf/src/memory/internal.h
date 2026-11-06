@@ -58,8 +58,8 @@ bc_status_t bc_ram_heap_alloc(bc_ram_heap_t *heap, uint16_t size, bc_ram_heap_pt
 bc_status_t bc_ram_heap_free(bc_ram_heap_t *heap, bc_ram_heap_ptr_t pointer);
 bc_status_t bc_ram_heap_map(bc_ram_heap_t *heap, bc_ram_heap_ptr_t pointer, void **address);
 /* The caller has selected a backing page and validated offset and address. */
-bc_status_t bc__ram_heap_map_page(bc_ram_heap_t *heap, bc_ram_page_t page,
-                                  uint16_t offset, void **address);
+bc_status_t bc__ram_heap_map_page(bc_ram_heap_t *heap, bc_ram_page_t page, uint16_t offset,
+                                  void **address);
 bc_status_t bc_ram_heap_unmap(bc_ram_heap_t *heap);
 bc_status_t bc_ram_heap_destroy(bc_ram_heap_t *heap);
 

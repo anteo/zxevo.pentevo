@@ -4,22 +4,36 @@
 
 #include "bc_test.h"
 
-static const char title[] = "\x17\x4f\x03" "ERS WINDOW";
-static const char message[] = "\x16\x09\x38\x17\x4f\x03" "Print message"
-                              "\x0d\x09\x03" "Single char: ";
+static const char title[] = "\x17\x4f\x03"
+                            "ERS WINDOW";
+static const char message[] = "\x16\x09\x38\x17\x4f\x03"
+                              "Print message"
+                              "\x0d\x09\x03"
+                              "Single char: ";
 static bc_ers_window_t window = {
-    .x = 5, .y = 6, .height = 8, .width = 22,
-    .attribute = 0x4f, .text = title,
+    .x = 5,
+    .y = 6,
+    .height = 8,
+    .width = 22,
+    .attribute = 0x4f,
+    .text = title,
 };
 static bc_ers_window_t empty_window = {
-    .x = 5, .y = 6, .height = 8, .width = 22,
-    .attribute = 0x4f, .flags = BC_ERS_WINDOW_NO_TEXT | BC_ERS_WINDOW_NO_FRAME,
+    .x = 5,
+    .y = 6,
+    .height = 8,
+    .width = 22,
+    .attribute = 0x4f,
+    .flags = BC_ERS_WINDOW_NO_TEXT | BC_ERS_WINDOW_NO_FRAME,
 };
 
-typedef char window_layout_matches_ers[
-    sizeof(bc_ers_window_t) == 20 && offsetof(bc_ers_window_t, flags) == 6 &&
-    offsetof(bc_ers_window_t, current_item) == 8 && offsetof(bc_ers_window_t, text) == 12 &&
-    offsetof(bc_ers_window_t, hotkeys) == 18 ? 1 : -1];
+typedef char window_layout_matches_ers[sizeof(bc_ers_window_t) == 20 &&
+                                               offsetof(bc_ers_window_t, flags) == 6 &&
+                                               offsetof(bc_ers_window_t, current_item) == 8 &&
+                                               offsetof(bc_ers_window_t, text) == 12 &&
+                                               offsetof(bc_ers_window_t, hotkeys) == 18
+                                           ? 1
+                                           : -1];
 
 static void check_draw(void) {
     volatile const uint8_t *const top_border = (const uint8_t *)0x40c5u;

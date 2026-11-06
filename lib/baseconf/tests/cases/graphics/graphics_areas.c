@@ -12,16 +12,13 @@ static uint8_t areas_match(uint8_t cleared) {
     for (y = 47; y <= 76; ++y) {
         for (x = 0; x <= 172; ++x) {
             uint8_t expected = 0;
-            if (y >= 48 && y <= 75 &&
-                (x <= 25 || (x >= 58 && x <= 97) || (x >= 132 && x <= 171)))
+            if (y >= 48 && y <= 75 && (x <= 25 || (x >= 58 && x <= 97) || (x >= 132 && x <= 171)))
                 expected = INK;
-            if (x >= 70 && x <= 85 && y >= 56 && y <= 67)
-                expected = cleared;
+            if (x >= 70 && x <= 85 && y >= 56 && y <= 67) expected = cleared;
             if (x >= 141 && x <= 162 && y >= 54 && y <= 69 &&
                 (x == 141 || x == 162 || y == 54 || y == 69))
                 expected = cleared;
-            if (bc_read_pixel_index(x, y, &index) != BC_OK || index != expected)
-                return 0;
+            if (bc_read_pixel_index(x, y, &index) != BC_OK || index != expected) return 0;
         }
     }
     return 1;

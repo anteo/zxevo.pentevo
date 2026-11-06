@@ -93,7 +93,7 @@ bc_status_t bc_ide_write_sector(uint32_t lba, const void *buffer, uint16_t max_p
  * already have been transferred. */
 bc_status_t bc_ide_read_sectors(uint32_t lba, void *buffer, uint8_t count, uint16_t max_polls);
 bc_status_t bc_ide_write_sectors(uint32_t lba, const void *buffer, uint8_t count,
-                                  uint16_t max_polls);
+                                 uint16_t max_polls);
 /* Read the 512-byte ATA IDENTIFY DEVICE response in little-endian word order. */
 bc_status_t bc_ide_identify(void *buffer, uint16_t max_polls);
 /* Read and decode ATA identification using a separate caller-owned 512-byte
@@ -104,8 +104,7 @@ bc_status_t bc_ide_get_info(bc_ata_info_t *info, uint8_t scratch[512], uint16_t 
 bc_status_t bc_ide_flush(uint16_t max_polls);
 /* Issue a one-sector command and wait for DRQ. After BC_OK, transfer exactly
  * one sector using the word or block API, then call bc_ide_wait_complete. */
-bc_status_t bc_ide_start_sector(bc_ata_sector_op_t operation, uint32_t lba,
-                                uint16_t max_polls);
+bc_status_t bc_ide_start_sector(bc_ata_sector_op_t operation, uint32_t lba, uint16_t max_polls);
 /* Poll alternate status until BSY clears and DRQ is asserted. */
 bc_status_t bc_ide_wait_data(uint16_t max_polls) __z88dk_fastcall;
 /* Poll alternate status until BSY and DRQ clear, then acknowledge ATA IRQ. */
@@ -137,8 +136,8 @@ bc_status_t bc_sd_end(bc_sd_transaction_t *transaction);
  * Store the R1 byte (including any card error bits) and leave the next response
  * byte pending. Returns BC_TIMEOUT if no R1 arrives. The caller must ensure
  * the card is ready for a new command and provide a non-NULL R1 pointer. */
-bc_status_t bc_sd_command(bc_sd_transaction_t *transaction, uint8_t command,
-                          uint32_t argument, uint8_t *r1);
+bc_status_t bc_sd_command(bc_sd_transaction_t *transaction, uint8_t command, uint32_t argument,
+                          uint8_t *r1);
 /* Wait for the FEh read token. On BC_OK the first payload byte is pending.
  * Returns BC_IO_ERROR for an SD data error token or BC_TIMEOUT on exhaustion. */
 bc_status_t bc_sd_wait_data(bc_sd_transaction_t *transaction, uint16_t max_polls);
@@ -157,9 +156,9 @@ bc_status_t bc_sd_load(bc_sd_card_info_t *info, uint16_t max_attempts, uint16_t 
  * Byte-addressed cards accept LBA 0..0x7fffff. max_polls must be nonzero and
  * bounds token and busy waits. These calls claim and release the transaction. */
 bc_status_t bc_sd_read_sector(bc_sd_card_type_t type, uint32_t lba, void *buffer,
-                               uint16_t max_polls);
+                              uint16_t max_polls);
 bc_status_t bc_sd_write_sector(bc_sd_card_type_t type, uint32_t lba, const void *buffer,
-                                uint16_t max_polls);
+                               uint16_t max_polls);
 /* Read a 16-byte identification/configuration register from an initialized
  * card in wire order. max_polls bounds the data-token wait. */
 bc_status_t bc_sd_read_cid(uint8_t cid[16], uint16_t max_polls);
@@ -169,8 +168,7 @@ bc_status_t bc_sd_read_ocr(uint8_t ocr[4], uint16_t max_polls);
 /* Decode the number of 512-byte sectors from a legacy or high-capacity CSD.
  * Supply the type returned by bc_sd_init. Returns BC_UNSUPPORTED when the
  * format or sector count cannot be represented by this API. */
-bc_status_t bc_sd_sector_count(bc_sd_card_type_t type, const uint8_t csd[16],
-                                uint32_t *sectors);
+bc_status_t bc_sd_sector_count(bc_sd_card_type_t type, const uint8_t csd[16], uint32_t *sectors);
 /* Return the CSD capacity in bytes when it fits in uint32_t. */
 bc_status_t bc_sd_size(bc_sd_card_type_t type, const uint8_t csd[16], uint32_t *bytes);
 /* Read 512 preceding SPI responses into a non-NULL writable buffer while

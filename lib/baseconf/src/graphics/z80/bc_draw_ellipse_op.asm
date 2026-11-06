@@ -30,25 +30,25 @@ defc BC_ELLIPSE_CY = BC_ELLIPSE_FRAME+8
 defc BC_ELLIPSE_RX = BC_ELLIPSE_FRAME+10
 defc BC_ELLIPSE_RY = BC_ELLIPSE_FRAME+12
 
-MACRO BC_ELLIPSE_LOAD_DE field
+        MACRO BC_ELLIPSE_LOAD_DE field
         ld e,(ix+field)
         ld d,(ix+field+1)
-ENDM
+        ENDM
 
-MACRO BC_ELLIPSE_STORE_HL field
+        MACRO BC_ELLIPSE_STORE_HL field
         ld (ix+field),l
         ld (ix+field+1),h
-ENDM
+        ENDM
 
-MACRO BC_ELLIPSE_STORE_DE field
+        MACRO BC_ELLIPSE_STORE_DE field
         ld (ix+field),e
         ld (ix+field+1),d
-ENDM
+        ENDM
 
-MACRO BC_ELLIPSE_STORE_LONG field
+        MACRO BC_ELLIPSE_STORE_LONG field
         BC_ELLIPSE_STORE_HL field
         BC_ELLIPSE_STORE_DE field+2
-ENDM
+        ENDM
 
 ; Draw an axis-aligned midpoint ellipse using the scaled rectangle form.
 ;

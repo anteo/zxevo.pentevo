@@ -3,7 +3,7 @@
 /* CMD55 can be illegal on MMC. CMD1 is only used for legacy cards that reject
  * the SD application-command sequence. */
 static bc_status_t bc__sd_init_negotiate(bc_sd_transaction_t *transaction, uint8_t sd_v2,
-                                       uint16_t attempts, bc_sd_card_type_t *type) {
+                                         uint16_t attempts, bc_sd_card_type_t *type) {
     uint8_t r1 = 0xff, mmc = 0;
     bc_status_t status;
     do {
@@ -30,7 +30,7 @@ static bc_status_t bc__sd_init_negotiate(bc_sd_transaction_t *transaction, uint8
 }
 
 static bc_status_t bc__sd_init_card(bc_sd_transaction_t *transaction, uint16_t attempts,
-                                  bc_sd_card_type_t *type) {
+                                    bc_sd_card_type_t *type) {
     uint16_t reset_attempts = attempts;
     uint8_t r1, i, sd_v2;
     uint8_t response[4];

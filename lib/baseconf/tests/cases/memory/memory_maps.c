@@ -6,9 +6,9 @@ static volatile uint8_t *const probe = (volatile uint8_t *)0x8123u;
 
 static uint8_t page_is(bc_map_t map, bc_window_t window, uint8_t page) {
     bc_window_config_t config;
-    return bc_get_window_config(map, window, &config) == BC_OK &&
-           config.kind == BC_RAM && config.physical_page == page &&
-           config.substitute_from_7ffd_or_dos == 0 && config.write_protected == 0;
+    return bc_get_window_config(map, window, &config) == BC_OK && config.kind == BC_RAM &&
+           config.physical_page == page && config.substitute_from_7ffd_or_dos == 0 &&
+           config.write_protected == 0;
 }
 
 static void check_switching(void) {

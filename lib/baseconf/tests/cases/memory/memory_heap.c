@@ -13,9 +13,8 @@ static volatile uint8_t *const scratch = (volatile uint8_t *)0xc123u;
 static uint8_t scratch_is_restored(void) {
     bc_window_config_t config;
     bc_map_t map = bc_get_active_map();
-    return bc_get_window_config(map, BC_WINDOW_3, &config) == BC_OK &&
-           config.kind == BC_RAM && config.physical_page == SCRATCH_PAGE &&
-           config.write_protected == 0 && *scratch == 0x8e;
+    return bc_get_window_config(map, BC_WINDOW_3, &config) == BC_OK && config.kind == BC_RAM &&
+           config.physical_page == SCRATCH_PAGE && config.write_protected == 0 && *scratch == 0x8e;
 }
 
 static bc_status_t map_block(bc_ram_heap_ptr_t block, void **address) {

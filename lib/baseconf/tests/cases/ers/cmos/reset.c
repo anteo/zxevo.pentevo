@@ -6,13 +6,11 @@
 
 #define CMOS_SETTINGS_COUNT 7u
 
-static const uint8_t cmos_indices[CMOS_SETTINGS_COUNT] = {
-    0xedu, 0xecu, 0xebu, 0xeau, 0xe9u, 0xe8u, 0xe7u
-};
+static const uint8_t cmos_indices[CMOS_SETTINGS_COUNT] = {0xedu, 0xecu, 0xebu, 0xeau,
+                                                          0xe9u, 0xe8u, 0xe7u};
 
-static const uint8_t cmos_defaults[CMOS_SETTINGS_COUNT] = {
-    0x04u, 0x82u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u
-};
+static const uint8_t cmos_defaults[CMOS_SETTINGS_COUNT] = {0x04u, 0x82u, 0x00u, 0x00u,
+                                                           0x00u, 0x00u, 0x00u};
 
 int main(void) {
     uint8_t original[CMOS_SETTINGS_COUNT];

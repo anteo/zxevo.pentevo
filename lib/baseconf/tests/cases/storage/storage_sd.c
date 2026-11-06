@@ -13,8 +13,7 @@ static void check_capacity(void) {
 
     csd[0] = 0x40; /* CSD v2, C_SIZE = 0x10000 (uses bits above the low word). */
     csd[7] = 1;
-    BC_ASSERT(bc_sd_sector_count(BC_SD_SDHC, csd, &capacity) == BC_OK &&
-              capacity == 0x04000400ul);
+    BC_ASSERT(bc_sd_sector_count(BC_SD_SDHC, csd, &capacity) == BC_OK && capacity == 0x04000400ul);
     BC_ASSERT(bc_sd_size(BC_SD_SDHC, csd, &capacity) == BC_UNSUPPORTED);
 
     csd[0] = 0;
