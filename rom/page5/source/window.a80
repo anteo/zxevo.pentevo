@@ -520,8 +520,7 @@ PRTSYMTXTMODE	PUSH DE
 		RET
 
 WINW_ZX		EXX
-	READ_7FFD
-		AND 8
+		CALL ZX_PRINT_TABLE
 		RRCA
 		RRCA
 		RRCA
@@ -868,10 +867,11 @@ RASCH		LD A,(IX+_X_COORD)
 		EXX
 		LD L,(IX+_ADR_TXT_L)
 		LD H,(IX+_ADR_TXT_H)
+		LD D,(IX+_FLAGS)
 		EXX
 	EVOPORT WIN_P2,RAM_NMI
 		EXX
-		BIT B_TEXT,(IX+_FLAGS)
+		BIT B_TEXT,D
 		JP Z,IPRINT_MESSAGE
 		RET
 
@@ -906,6 +906,16 @@ CLS2
 		OUT (0xFE),A
 		RET
 
+; Select the ZX row table even when the window has no initial text. A keeps 7FFD bit 3.
+ZX_PRINT_TABLE
+	READ_7FFD
+		AND 8
+		LD BC,BUFTSC
+		JR Z,.L1
+		LD BC,BUFTSC1
+.L1		LD (TEKBUFTSC),BC
+		RET
+
 STOP_PRINTMSG
 	EVOPORT WIN_P2,RAM_NMI
 		RET
@@ -919,12 +929,7 @@ IPRINT_MESSAGE	LD A,(R_77)
 		JP Z,ITPRINT_MESSAGE
 		CP 3
 		RET NZ
-	READ_7FFD
-		AND 8
-		LD BC,BUFTSC
-		JR Z,IPM1
-		LD BC,BUFTSC1
-IPM1		LD (TEKBUFTSC),BC
+		CALL ZX_PRINT_TABLE
 		LD BC,WIN_P2
 ; печать текстовой стороки с управляющими кодами (внутренний вызов)
 NEXT		LD A,(PAGE4READ)
@@ -1439,7 +1444,9 @@ SCRUP1		LD A,(IX+0x10)
 		AND 3
 		OR 0x58
 		LD H,A
-		LD L,(IX+0x10)
+		LD A,(IX+0x10)
+		ADD A,C
+		LD L,A
 		LD A,(IX+1)
 		RRCA
 		RRCA
@@ -1447,7 +1454,9 @@ SCRUP1		LD A,(IX+0x10)
 		AND 3
 		OR 0x58
 		LD D,A
-		LD E,(IX+0)
+		LD A,(IX+0)
+		ADD A,C
+		LD E,A
 		PUSH BC
 		CALL LDIST
 		POP BC
@@ -1739,7 +1748,9 @@ SCRDN1		LD A,(IX+0)
 		AND 3
 		OR 0x58
 		LD H,A
-		LD L,(IX+0)
+		LD A,(IX+0)
+		ADD A,C
+		LD L,A
 		LD A,(IX+0x11)
 		RRCA
 		RRCA
@@ -1747,7 +1758,9 @@ SCRDN1		LD A,(IX+0)
 		AND 3
 		OR 0x58
 		LD D,A
-		LD E,(IX+0x10)
+		LD A,(IX+0x10)
+		ADD A,C
+		LD E,A
 		PUSH BC
 		CALL LDIST
 		POP BC
