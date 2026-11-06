@@ -1,0 +1,13 @@
+*/trunk/quartus/db/
+*/trunk/quartus/incremental_db/
+*/trunk/quartus/output_files/
+*/trunk/quartus/*.done
+*/trunk/quartus/*.pin
+*/trunk/quartus/*.rpt
+*/trunk/quartus/*.smsg
+*/trunk/quartus/*.summary
+*/trunk/quartus/*.qws
+*/trunk/quartus/top.qpf
+*/trunk/quartus/top_assignment_defaults.qdf
+*/trunk/quartus/top.rbf
+*/trunk/quartus/top.sof
