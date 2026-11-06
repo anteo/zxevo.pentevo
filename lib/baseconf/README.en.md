@@ -164,9 +164,9 @@ The value `512` reserves space for the stack; it does not guard against stack ov
 value for the application. This only works with RAM that remains continuously accessible at those
 addresses. It does not allocate physical banks or switch BaseConf windows.
 
-For banked pages, use `bc_ram_page_pool_t`. BaseConf has a fixed set of 64 RAM pages, each 16 KiB,
-so pool membership is configured with one 8-byte mask: a set bit includes a page, and a clear bit
-excludes it. For example, to exclude pages 2 and 5, set the first mask byte to `0xDB` and the
+The `bc_ram_page_pool_t` pool covers physical RAM pages `0..63`, each 16 KiB.
+Each set bit in its eight-byte mask includes the corresponding page. For example, to exclude
+pages 2 and 5, set the first mask byte to `0xDB` and the
 remaining bytes to `0xFF`. The pool does not discover pages used by the application or system, clear
 page contents, or map pages into windows; construct the mask from the application's memory layout.
 Allocation state is stored inside `bc_ram_page_pool_t`. Map an allocated page temporarily with
